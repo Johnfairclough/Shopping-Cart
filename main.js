@@ -12,19 +12,19 @@ let products = [
     },
     {
         name: 'Womens Casual Top',
-        tag: 'pd1',
+        tag: 'pd2',
         price: '22.95',
         inCart: 0
     },
     {
         name: 'Womens 1/4-Zip Footbal Jacket',
-        tag: 'pd1',
+        tag: 'pd3',
         price: '59.95',
         inCart: 0
     },
     {
         name: 'Mens Pullover Hoodie',
-        tag: 'pd1',
+        tag: 'pd4',
         price: '84.95',
         inCart: 0
     }
@@ -32,7 +32,7 @@ let products = [
 
 for (let i=0; i < carts.length; i++) {
     carts[i].addEventListener('click', () => {
-        cartNumbers();
+        cartNumbers(products[i]);
     })
 }
 
@@ -45,7 +45,7 @@ function onLoadCartNumbers() {
 
 }
 
-function cartNumbers() {
+function cartNumbers(product) {
     let productNumbers = localStorage.getItem('cartNumbers');
 
     productNumbers = parseInt(productNumbers);
@@ -58,7 +58,19 @@ function cartNumbers() {
         document.querySelector('.cart span').textContent = 1;
     }
 
+    setItems(product);
+}
+
+function setItems(product) {
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
     
+    product.inCart = 1;
+    
+    let cartItems = {
+        [product.tag]: product
+    }
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
 
 onLoadCartNumbers();
