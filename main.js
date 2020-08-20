@@ -7,25 +7,25 @@ let products = [
     {
         name: 'Womens Tennis Top',
         tag: 'pd1',
-        price: '47.95',
+        price: 47,
         inCart: 0
     },
     {
         name: 'Womens Casual Top',
         tag: 'pd2',
-        price: '22.95',
+        price: 22,
         inCart: 0
     },
     {
         name: 'Womens 1/4-Zip Footbal Jacket',
         tag: 'pd3',
-        price: '59.95',
+        price: 59,
         inCart: 0
     },
     {
         name: 'Mens Pullover Hoodie',
         tag: 'pd4',
-        price: '84.95',
+        price: 84,
         inCart: 0
     }
 ];
@@ -81,20 +81,22 @@ function setItems(product) {
             [product.tag]: product
         }
     }
-
-
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
 
 
 function totalCost(product) {
+
     let cartCost = localStorage.getItem('totalCost');
 
     if(cartCost != null) {
         cartCost = parseInt(cartCost);
-        localStorage.setItem('totalCost', cartCost + product.price);
+
+        console.log("my cart cost is", cartCost);
+
+        localStorage.setItem("totalCost", cartCost + product.price);
     } else {
-    localStorage.setItem('totalCost', product.price);
+    localStorage.setItem("totalCost", product.price);
     }
 }
 
@@ -105,6 +107,7 @@ function displayCart() {
     let productContainer = document.querySelector(".products");
     let cartCost = localStorage.getItem('totalCost');
 
+    
     if( cartItems && productContainer ) {
         productContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
